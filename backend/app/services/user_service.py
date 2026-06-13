@@ -1,44 +1,51 @@
-from app.models.user import User
+from fastapi import HTTPException, status
+from sqlalchemy.orm import Session
 from app.repositories.user_repository import UserRepository
-from app.schemas.user import UserCreate, UserUpdate
+from app.schemas.user import UserCreate, UserUpdate, UserResponse
+from app.core.security import hash_password, verify_password
 
 
-class UserNotFoundError(Exception):
-    """Raised when a requested user does not exist."""
+class AuthService:
+    def __init__(self, db: Session):
+        self.repo = UserRepository(db)
 
+    def create_user(self, user_data: UserCreate) -> UserResponse:
+        # Check uniqueness
+        if self.repo.get_by_email(user_data.email):
+            raise HTTPException(status_code=400, detail="Email already exists")
+        if self.repo.get_by_username(user_data.username):
+            raise HTTPException(status_code=400, detail="Username already exists")
 
-class EmailAlreadyExistsError(Exception):
-    """Raised when creating/updating a user with an email already in use."""
+        # Build dict for repository
+        user_dict = user_data.model_dump()
+        user_dict["hashed_password"] = hash_password(user_dict.pop("password"))
 
+        user = self.repo.create(user_dict)
+        return UserResponse.model_validate(user)
 
-class UserService:
-    """Business logic for users. Coordinates validation and the repository."""
+    def get_user(self, user_id: int) -> UserResponse | None:
+        user = self.repo.get_by_id(user_id)
+        return UserResponse.model_validate(user) if user else None
 
-    def __init__(self, repository: UserRepository) -> None:
-        self.repository = repository
+    def update_user(self, user_id: int, update_data: UserUpdate) -> UserResponse | None:
+        user = self.repo.update(user_id, update_data)
+        return UserResponse.model_validate(user) if user else None
 
-    def list_users(self, skip: int = 0, limit: int = 100) -> list[User]:
-        return self.repository.list(skip=skip, limit=limit)
+    def delete_user(self, user_id: int) -> bool:
+        return self.repo.delete(user_id)
 
-    def get_user(self, user_id: int) -> User:
-        user = self.repository.get(user_id)
-        if user is None:
-            raise UserNotFoundError(f"User {user_id} not found")
-        return user
+    def list_users(self, skip: int = 0, limit: int = 100) -> list[UserResponse]:
+        users = self.repo.list_all(skip, limit)
+        return [UserResponse.model_validate(u) for u in users]
 
-    def create_user(self, data: UserCreate) -> User:
-        if self.repository.get_by_email(data.email) is not None:
-            raise EmailAlreadyExistsError(f"Email {data.email} is already registered")
-        return self.repository.create(data)
-
-    def update_user(self, user_id: int, data: UserUpdate) -> User:
-        user = self.get_user(user_id)
-        if data.email is not None and data.email != user.email:
-            existing = self.repository.get_by_email(data.email)
-            if existing is not None and existing.id != user.id:
-                raise EmailAlreadyExistsError(f"Email {data.email} is already registered")
-        return self.repository.update(user, data)
-
-    def delete_user(self, user_id: int) -> None:
-        user = self.get_user(user_id)
-        self.repository.delete(user)
+    # ----- Authentication helper -----
+    def authenticate_user(self, username: str, password: str) -> UserResponse | None:
+        # Allow login with either username or email
+        user = self.repo.get_by_username(username)
+        if not user:
+            user = self.repo.get_by_email(username)
+        if not user:
+            return None
+        if not verify_password(password, user.hashed_password):
+            return None
+        return UserResponse.model_validate(user)
