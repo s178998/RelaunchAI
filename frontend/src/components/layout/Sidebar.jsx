@@ -1,11 +1,13 @@
+"use client";
 // components/layout/Sidebar.jsx
 import { useState, useContext, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import authContext from "../../context/AuthContext";
 
 function Sidebar() {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
   const { logout, user } = useContext(authContext);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
@@ -33,7 +35,7 @@ function Sidebar() {
   }, [user]);
 
   const isActive = (path) => {
-    return location.pathname === path;
+    return pathname === path;
   };
 
   const toggleSidebar = () => {
@@ -64,7 +66,7 @@ function Sidebar() {
     // }
     
     // Redirect to landing page (public homepage)
-    navigate('/');
+    router.push('/');
   };
 
   const getUserInitials = () => {
@@ -207,7 +209,7 @@ function Sidebar() {
                 {section.items.map((item) => (
                   <Link
                     key={item.path}
-                    to={item.path}
+                    href={item.path}
                     className={`flex items-center ${isCollapsed ? 'justify-center px-0' : 'gap-2.5 px-3'} py-2 rounded-lg transition-all duration-200 text-sm group ${
                       isActive(item.path)
                         ? 'bg-gray-800 text-white'

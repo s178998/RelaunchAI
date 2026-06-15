@@ -1,9 +1,10 @@
+"use client";
 // components/Onboarding.jsx
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 export default function Onboarding() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
@@ -29,7 +30,7 @@ export default function Onboarding() {
     
     if (!userData || !token) {
       console.log("No user or token, redirecting to login");
-      navigate('/login', { replace: true });
+      router.replace('/login');
       return;
     }
     
@@ -41,9 +42,9 @@ export default function Onboarding() {
     
     if (completed === 'true') {
       console.log("User already completed onboarding, redirecting to dashboard");
-      navigate('/dashboard', { replace: true });
+      router.replace('/dashboard');
     }
-  }, [navigate]);
+  }, [router]);
 
   const companies = [
     "Meta", "Google", "Amazon", "Microsoft", "Netflix", 
