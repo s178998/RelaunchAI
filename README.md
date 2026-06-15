@@ -106,27 +106,6 @@ RelaunchAI solves these challenges by providing:
 | **Auth** | JWT, Google OAuth 2.0 |
 | **Deployment** | Docker, Docker Compose |
 
-### System Architecture
-
-┌─────────────────────────────────────────────────────────────┐
-│                      Client Browser                         │
-│                 (React SPA with Tailwind)                   │
-└─────────────────────────────┬───────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                      FastAPI Backend                        │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐  │
-│  │   Auth API  │  │   AI API    │  │   User API          │  │
-│  │  /auth/*    │  │  /ai/*      │  │  /users/*           │  │
-│  └─────────────┘  └─────────────┘  └─────────────────────┘  │
-└─────────────────────────────┬───────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                        PostgreSQL                            │
-│                  (users, profiles, cache)                    │
-└─────────────────────────────────────────────────────────────┘
 
 
 ### Data Flow
@@ -284,6 +263,8 @@ Method	Endpoint	Description
 POST	/auth/token	Login with email/password
 GET	/auth/google/login	Google OAuth login
 GET	/auth/google/callback	Google OAuth callback
+
+
 Users
 Method	Endpoint	Description
 POST	/users	Create new user
@@ -291,6 +272,8 @@ GET	/users/me	Get current user
 GET	/users/{id}	Get user by ID
 PUT	/users/{id}	Update user
 DELETE	/users/{id}	Delete user
+
+
 AI Services
 Method	Endpoint	Description
 POST	/ai/analyze-risk	Layoff risk analysis
@@ -299,21 +282,29 @@ POST	/ai/analyze-skills	Skills analysis
 🎨 Risk Score Calculation
 Risk scores are calculated deterministically based on:
 
-text
-Base Score = Company Risk (15-80)
-          × Department Multiplier (0.85-1.4)
-          ± Level Adjustment (±10)
+
+Base Score = Company Risk (15-80) × Department Multiplier (0.85-1.4) ± Level Adjustment (±10)
 
 Final Score = Clamp(Base Score, 15, 85)
+
 Company Risk Tiers
+
 Tier	Companies	Risk Range
+
 High	Meta, Amazon, Salesforce	65-80%
+
 Medium	Google, Microsoft, Netflix	50-65%
+
 Low	Apple, Stripe, Adobe	30-50%
+
 Department Multipliers
+
 Department	Multiplier
+
 HR, Recruiting	1.3-1.4x
+
 Sales, Marketing	1.15-1.2x
+
 Engineering, Product	0.85-0.9x
 
 🧪 Testing
@@ -393,29 +384,4 @@ All contributors and users
 Issues: GitHub Issues
 
 Email: support@relaunchai.com
-
-Website: https://relaunchai.com
-
-<div align="center"> <sub>Built with ❤️ for the tech community</sub> </div> ```
-This README provides:
-
-Professional overview - Clear problem statement and solution
-
-Feature list - All major functionality documented
-
-Architecture diagram - Visual system design
-
-Setup instructions - Step-by-step installation
-
-API documentation - All endpoints explained
-
-Risk calculation - Transparent scoring algorithm
-
-Project structure - Organized file tree
-
-Deployment guide - Docker and production setup
-
-Contributing guidelines - For open source collaboration
-
-Save this as README.md in your project root before committing to GitHub!
 
