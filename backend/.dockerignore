@@ -4,4 +4,6 @@ __pycache__/
 .env
 .git/
 .gitignore
-README.md
+*.md
+.DS_Store
+*.log

@@ -1,3 +1,4 @@
+# app/core/config.py
 from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -7,6 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 class Settings(BaseSettings):
     DATABASE_URL: str
     SECRET_KEY: str
+    OPENAI_API_KEY: str  # Add this line
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     APP_NAME: str = "RelaunchAI"
@@ -19,3 +21,6 @@ class Settings(BaseSettings):
 
 
 settings = Settings() # type: ignore
+
+if __name__ == "__main__":
+    print(BASE_DIR)

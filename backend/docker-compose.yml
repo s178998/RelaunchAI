@@ -3,22 +3,28 @@ version: '3.9'
 services:
   db:
     image: postgres:16-alpine
+    container_name: relaunchai-db
     environment:
       POSTGRES_USER: relaunchai_user
       POSTGRES_PASSWORD: relaunchai_pass
       POSTGRES_DB: relaunchai_db
+      PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U relaunchai_user -d relaunchai_db"]
-      interval: 5s
+      interval: 10s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
+    networks:
+      - relaunchai-network
 
   app:
     build: .
+    container_name: relaunchai-app
     ports:
       - "8000:8000"
     depends_on:
@@ -26,15 +32,23 @@ services:
         condition: service_healthy
     environment:
       DATABASE_URL: postgresql://relaunchai_user:relaunchai_pass@db:5432/relaunchai_db
-      SECRET_KEY: supersecretkey-change-in-production
+      SECRET_KEY: ${SECRET_KEY:-supersecretkeychangeme}
       ALGORITHM: HS256
       ACCESS_TOKEN_EXPIRE_MINUTES: 30
       APP_NAME: RelaunchAI
       DEBUG: "True"
     volumes:
-      - ./app:/app/app   # for live code reload (optional)
-    env_file:
-      - .env
+      - ./app:/app/app  # Mount for live code reload
+      - ./logs:/app/logs
+    networks:
+      - relaunchai-network
+    restart: unless-stopped
 
 volumes:
   postgres_data:
+    name: relaunchai_postgres_data
+
+networks:
+  relaunchai-network:
+    name: relaunchai-network
+    driver: bridge

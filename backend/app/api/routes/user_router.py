@@ -1,9 +1,10 @@
+# app/api/routes/user_router.py
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.services.user_service import AuthService
 from app.schemas.user import UserCreate, UserResponse, UserUpdate
-from app.api.sessions import get_current_user  # we'll create this next
+from app.api.sessions import get_current_user
 from app.core.database import get_db
 from app.core.security import create_access_token
 from app.services.user_service import AuthService
@@ -20,7 +21,18 @@ router = APIRouter(prefix="/users", tags=["users"])
 def create_user(user_data: UserCreate, db: Session = Depends(get_db)):
     """Create a new user"""
     service = AuthService(db)
-    return service.create_user(user_data)  # HTTPException already raised inside
+    
+    user_dict = user_data.model_dump()
+    
+    service.save_to_csv(user_dict)
+    
+    return service.create_user(user_data)
+
+
+@router.get("/me", response_model=UserResponse)
+def get_current_user_info(current_user = Depends(get_current_user)):
+    """Get the current authenticated user's info"""
+    return current_user
 
 
 @router.get("/{user_id}", response_model=UserResponse)
@@ -37,7 +49,6 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
 def update_user(user_id: int, update_data: UserUpdate, db: Session = Depends(get_db),
                 current_user=Depends(get_current_user)):
     """Update a user (requires authentication)"""
-    # Optional: add admin check if needed
     service = AuthService(db)
     user = service.update_user(user_id, update_data)
     if not user:
@@ -59,22 +70,3 @@ def list_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     """List users with pagination"""
     service = AuthService(db)
     return service.list_users(skip, limit)
-
-@router.post("/token", response_model=Token)
-def login_for_access_token(
-    form_data: OAuth2PasswordRequestForm = Depends(),
-    db: Session = Depends(get_db)
-):
-    service = AuthService(db)
-    user = service.authenticate_user(form_data.username, form_data.password)
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = create_access_token(
-        data={"sub": str(user.id)}, expires_delta=access_token_expires
-    )
-    return {"access_token": access_token, "token_type": "bearer"}

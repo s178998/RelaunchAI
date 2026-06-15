@@ -3,18 +3,35 @@ from sqlalchemy.orm import Session
 from app.repositories.user_repository import UserRepository
 from app.schemas.user import UserCreate, UserUpdate, UserResponse
 from app.core.security import hash_password, verify_password
+import csv
+from datetime import datetime
+import json
+import pandas as pd # type: ignore
+
+
+
+
+    
 
 
 class AuthService:
     def __init__(self, db: Session):
         self.repo = UserRepository(db)
 
+    def save_to_csv(self, data_dict, filename='users_export.csv'):
+        """Save dict to CSV using pandas - super simple!"""
+        df = pd.DataFrame(data_dict if isinstance(data_dict, list) else [data_dict])
+        df.to_csv(filename, index=False, encoding='utf-8')
+        print(f"✅ Saved to {filename}")
+            
+            
+
     def create_user(self, user_data: UserCreate) -> UserResponse:
         # Check uniqueness
         if self.repo.get_by_email(user_data.email):
             raise HTTPException(status_code=400, detail="Email already exists")
-        if self.repo.get_by_username(user_data.username):
-            raise HTTPException(status_code=400, detail="Username already exists")
+        # if self.repo.get_by_username(user_data.username):
+        #     raise HTTPException(status_code=400, detail="Username already exists")
 
         # Build dict for repository
         user_dict = user_data.model_dump()
@@ -39,13 +56,13 @@ class AuthService:
         return [UserResponse.model_validate(u) for u in users]
 
     # ----- Authentication helper -----
-    def authenticate_user(self, username: str, password: str) -> UserResponse | None:
+    def authenticate_user(self, email, password: str) -> UserResponse | None:
         # Allow login with either username or email
-        user = self.repo.get_by_username(username)
-        if not user:
-            user = self.repo.get_by_email(username)
+        user = self.repo.get_by_email(email)
         if not user:
             return None
-        if not verify_password(password, user.hashed_password):
+        # user.hashed_password may be typed as a SQLAlchemy Column in some contexts;
+        # ensure we pass a str to verify_password
+        if not verify_password(password, user.hashed_password): # type: ignore
             return None
-        return UserResponse.model_validate(user)
+        return user
