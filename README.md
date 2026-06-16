@@ -132,8 +132,8 @@ RelaunchAI solves these challenges by providing:
 #### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/relaunch-ai.git
-cd relaunch-ai
+git clone https://github.com/yourusername/RelaunchAI.git
+cd relaunchai
 
 
 # Navigate to backend
@@ -188,15 +188,15 @@ API Documentation: http://localhost:8000/docs
 
 
 
-relaunch-ai/
+RelaunchAI/
 ├── backend/
 │   ├── app/
 │   │   ├── api/
 │   │   │   └── routes/
 │   │   │       ├── ai_router.py      # AI endpoints
 │   │   │       ├── auth_router.py    # Authentication
-│   │   │       ├── user_router.py    # User management
-│   │   │       └── google_auth_router.py
+│   │   │       └── user_router.py    # User management
+│   │   │   └── sessions.py
 │   │   ├── core/
 │   │   │   ├── config.py             # Settings
 │   │   │   ├── database.py           # DB connection
@@ -211,45 +211,89 @@ relaunch-ai/
 │   │   │   ├── openai_service.py     # AI integration
 │   │   │   └── user_service.py       # Business logic
 │   │   └── main.py                   # App entry
+│   ├── docker-compose.yml
+│   ├── Dockerfile
 │   ├── requirements.txt
-│   └── .env
+|   └── users_export.csv
 │
 ├── frontend/
 │   ├── src/
+│   │   ├── app/
+│   │   │   ├── App.css
+│   │   │   ├── App.jsx
+│   │   │   ├── main.jsx
+│   │   │   ├── ProtectedRoute.jsx
+│   │   │   ├── providers.jsx
+│   │   │   └── routes.jsx
 │   │   ├── components/
-│   │   │   ├── layout/               # Sidebar, Topbar
+│   │   │   ├── dashboard/
+│   │   │   │   ├── ActivityFeed.jsx
+│   │   │   │   ├── RecoveryTimeline.jsx
+│   │   │   │   └── StatsGrid.jsx
+│   │   │   ├── interview/               
+│   │   │   │   ├── ChatWindow.jsx
+│   │   │   │   └── MessageBubble.jsx
+│   │   │   ├── layout/               # Sidebar, Topbar, footer
+│   │   │   │   ├── footer.jsx
+│   │   │   │   ├── Sidebar.jsx
+│   │   │   │   └── Topbar.jsx
+│   │   │   ├── resume/ 
+│   │   │   │   ├── AISuggestions.jsx
+│   │   │   │   └── ResumeUpload.jsx
+│   │   │   ├── ui/ 
+│   │   │   │   ├── Badge.jsx
+│   │   │   │   ├── Button.jsx
+│   │   │   │   ├── Card.jsx
+│   │   │   │   ├── Input.jsx
+│   │   │   │   └── StatCard.jsx
+│   │   │   ├── AuthGuard.jsx
 │   │   │   └── Onboarding.jsx
 │   │   ├── context/
 │   │   │   └── AuthContext.jsx
 │   │   ├── layouts/
 │   │   │   ├── AppLayout.jsx
-│   │   │   ├── PublicLayout.jsx
-│   │   │   └── CommunityLayout.jsx
+│   │   │   ├── CommunityLayout.jsx
+│   │   │   └── PublicLayout.jsx
 │   │   ├── pages/
 │   │   │   ├── app/                  # Protected pages
+│   │   │   │   ├── AiResumeGenerator.jsx
+│   │   │   │   ├── Community.jsx
 │   │   │   │   ├── Dashboard.jsx
-│   │   │   │   ├── LayoffRisk.jsx
+│   │   │   │   ├── Interview.jsx
 │   │   │   │   ├── JobMatching.jsx
-│   │   │   │   ├── SkillsLearning.jsx
+│   │   │   │   ├── LayoffRisk.jsx
+│   │   │   │   ├── Profile.jsx
 │   │   │   │   ├── ResumeBuilder.jsx
+│   │   │   │   ├── RoleModal.jsx
+│   │   │   │   ├── Settings.jsx
+│   │   │   │   ├── SkillsLearning.jsx
 │   │   │   │   └── TransitionHub.jsx
+│   │   │   └── community/            # Community pages
+│   │   │   │   ├── CommunityDashboard.jsx
+│   │   │   │   ├── CommunityEvents.jsx
+│   │   │   │   ├── CommunityFeed.jsx
+│   │   │   │   ├── CommunityGroups.jsx
+│   │   │   │   ├── CommunityGuidelines.jsx
+│   │   │   │   ├── CommunityJobs.jsx
+│   │   │   │   └── CommunityJoin.jsx
 │   │   │   ├── public/               # Public pages
+│   │   │   │   ├── Features.jsx
+│   │   │   │   ├── HowItWorks.jsx
 │   │   │   │   ├── Landing.jsx
 │   │   │   │   ├── Login.jsx
 │   │   │   │   └── Register.jsx
-│   │   │   └── community/            # Community pages
 │   │   ├── services/
-│   │   │   └── api.js                # API client
-│   │   ├── styles/
-│   │   │   └── globals.css
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── routes.jsx
+│   │   │   ├── api.js                # API client
+│   │   │   └── gemini.js   
+│   │   └── styles/
+│   │       └── globals.css
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package-lock.json
 │   ├── package.json
-│   ├── vite.config.js
-│   └── index.html
+│   └── vite.config.js
 │
-├── docker-compose.yml
+├── LICENSE
 └── README.md
 
 
