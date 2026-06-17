@@ -16,11 +16,11 @@
 
 ---
 
-## 📋 Overview
+## Overview
 
 RelaunchAI is a comprehensive career transition platform designed to help tech professionals navigate layoffs, upskill effectively, and find their next opportunity. Using artificial intelligence, the platform provides personalized risk analysis, job matching, skills assessment, and professional resume generation.
 
-### 🎯 Problem Statement
+### Problem Statement
 
 Tech professionals facing layoffs struggle with:
 - Understanding their actual layoff risk level
@@ -29,7 +29,7 @@ Tech professionals facing layoffs struggle with:
 - Creating professional resumes quickly
 - Navigating career transitions effectively
 
-### 💡 Solution
+### Solution
 
 RelaunchAI solves these challenges by providing:
 - **AI-powered risk analysis** based on company, role, and market conditions
@@ -40,43 +40,43 @@ RelaunchAI solves these challenges by providing:
 
 ---
 
-## ✨ Features
+## Features
 
-### 🔐 Authentication & User Management
+### Authentication & User Management
 - Secure JWT-based authentication
 - Google OAuth 2.0 integration
 - User profile management
 - Session persistence with localStorage
 
-### 📊 Dashboard & Risk Analysis
+### Dashboard & Risk Analysis
 - Real-time layoff risk scoring (15-85%)
 - Company-specific risk factors
 - Leadership exit tracking
 - Market demand analytics
 - Personalized recommendations
 
-### 💼 Job Matching
+### Job Matching
 - AI-powered job recommendations
 - Match score calculation based on skills
 - Filter by match percentage
 - Direct application links
 - Job application tracking
 
-### 📚 Skills & Learning
+### Skills & Learning
 - Role-specific skill assessment
 - Market demand heatmap
 - Personalized course recommendations
 - Direct links to Coursera, Udemy, edX, etc.
 - Learning progress tracking
 
-### 📄 Resume Builder
+### Resume Builder
 - AI-assisted resume generation
 - Multiple professional templates
 - Real-time preview
 - Download as TXT/JSON
 - Edit and customize sections
 
-### 🔄 Transition Hub
+### Transition Hub
 - Severance package estimator
 - Benefits protection guide
 - Legal resources
@@ -93,7 +93,7 @@ RelaunchAI solves these challenges by providing:
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ### Tech Stack
 
@@ -118,7 +118,7 @@ RelaunchAI solves these challenges by providing:
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -187,7 +187,7 @@ Backend API: http://localhost:8000
 API Documentation: http://localhost:8000/docs
 
 
-🔧 API Endpoints
+API Endpoints
 Authentication
 Method	Endpoint	Description
 POST	/auth/token	Login with email/password
@@ -237,7 +237,7 @@ Sales, Marketing	1.15-1.2x
 
 Engineering, Product	0.85-0.9x
 
-🧪 Testing
+Testing
 bash
 
 # Backend tests
@@ -247,7 +247,7 @@ pytest
 # Frontend tests
 cd frontend
 npm test
-📦 Deployment
+Deployment
 Docker Deployment
 bash
 
@@ -274,7 +274,7 @@ Set up monitoring (Prometheus/Grafana)
 
 Configure backup strategy
 
-🤝 Contributing
+Contributing
 Fork the repository
 
 Create a feature branch (git checkout -b feature/amazing-feature)
@@ -296,10 +296,10 @@ Add tests for new features
 
 Update documentation accordingly
 
-📄 License
+License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-🙏 Acknowledgments
+Acknowledgments
 OpenAI for GPT API
 
 FastAPI community
@@ -310,7 +310,7 @@ Tailwind CSS
 
 All contributors and users
 
-📞 Contact & Support
+Contact & Support
 Issues: GitHub Issues
 
 Email: support@relaunchai.com
