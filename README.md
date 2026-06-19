@@ -134,20 +134,26 @@ RelaunchAI solves these challenges by providing:
 ```bash
 git clone https://github.com/yourusername/RelaunchAI.git
 cd relaunchai
+'''
 
 # Navigate to backend
 ```bash
 cd backend
+'''
 
 # Create virtual environment
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
+'''
 
 # Install dependencies
+```bash
 pip install -r requirements.txt
+'''
 
 # Create .env file
+```bash
 cat > .env << EOF
 DATABASE_URL=postgresql://user:password@localhost/relaunchai_db
 SECRET_KEY=your-secret-key-here
@@ -157,27 +163,40 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 APP_NAME=RelaunchAI
 DEBUG=True
 EOF
+'''
 
 # Initialize database
+```bash
 python -c "from app.core.database import engine, Base; Base.metadata.create_all(bind=engine)"
+'''
 
 # Run backend server
+```bash
 uvicorn app.main:app --reload --port 8000
+'''
 
 
 # Open new terminal, navigate to frontend
+```bash
 cd frontend
+'''
 
 # Install dependencies
+```bash
 npm install
+'''
 
 # Create .env file
+```bash
 cat > .env << EOF
 VITE_API_URL=http://localhost:8000
 EOF
+'''
 
 # Run development server
+```bash
 npm run dev
+'''
 
 
 4. Access the application
@@ -239,27 +258,37 @@ Sales, Marketing	1.15-1.2x
 Engineering, Product	0.85-0.9x
 
 Testing
-bash
 
 # Backend tests
+'''bash
 cd backend
 pytest
+'''
 
 # Frontend tests
+'''bash
 cd frontend
 npm test
+'''
+
 Deployment
 Docker Deployment
-bash
 
 # Build and run with Docker Compose
+'''bash
 docker-compose up -d --build
+'''
 
 # View logs
+'''bash
 docker-compose logs -f
+'''
 
 # Stop services
+'''bash
 docker-compose down
+'''
+
 Production Checklist
 Set DEBUG=False in backend .env
 
@@ -309,10 +338,9 @@ React team
 
 Tailwind CSS
 
-All contributors and users
+All contributors
 
-Contact & Support
-Issues: GitHub Issues
-
-Email: support@relaunchai.com
-
+Co-Leads + Frontend: Deji and Dom
+AI Lead + Research: Lexie
+Data Collection Support: Jordyn
+QA + Documentation: Zachary
