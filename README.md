@@ -135,11 +135,12 @@ RelaunchAI solves these challenges by providing:
 git clone https://github.com/yourusername/RelaunchAI.git
 cd relaunchai
 
-
 # Navigate to backend
+```bash
 cd backend
 
 # Create virtual environment
+```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
