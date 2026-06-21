@@ -16,11 +16,11 @@
 
 ---
 
-## 📋 Overview
+## Overview
 
 RelaunchAI is a comprehensive career transition platform designed to help tech professionals navigate layoffs, upskill effectively, and find their next opportunity. Using artificial intelligence, the platform provides personalized risk analysis, job matching, skills assessment, and professional resume generation.
 
-### 🎯 Problem Statement
+### Problem Statement
 
 Tech professionals facing layoffs struggle with:
 - Understanding their actual layoff risk level
@@ -29,7 +29,7 @@ Tech professionals facing layoffs struggle with:
 - Creating professional resumes quickly
 - Navigating career transitions effectively
 
-### 💡 Solution
+### Solution
 
 RelaunchAI solves these challenges by providing:
 - **AI-powered risk analysis** based on company, role, and market conditions
@@ -40,43 +40,43 @@ RelaunchAI solves these challenges by providing:
 
 ---
 
-## ✨ Features
+## Features
 
-### 🔐 Authentication & User Management
+### Authentication & User Management
 - Secure JWT-based authentication
 - Google OAuth 2.0 integration
 - User profile management
 - Session persistence with localStorage
 
-### 📊 Dashboard & Risk Analysis
+### Dashboard & Risk Analysis
 - Real-time layoff risk scoring (15-85%)
 - Company-specific risk factors
 - Leadership exit tracking
 - Market demand analytics
 - Personalized recommendations
 
-### 💼 Job Matching
+### Job Matching
 - AI-powered job recommendations
 - Match score calculation based on skills
 - Filter by match percentage
 - Direct application links
 - Job application tracking
 
-### 📚 Skills & Learning
+### Skills & Learning
 - Role-specific skill assessment
 - Market demand heatmap
 - Personalized course recommendations
 - Direct links to Coursera, Udemy, edX, etc.
 - Learning progress tracking
 
-### 📄 Resume Builder
+### Resume Builder
 - AI-assisted resume generation
 - Multiple professional templates
 - Real-time preview
 - Download as TXT/JSON
 - Edit and customize sections
 
-### 🔄 Transition Hub
+### Transition Hub
 - Severance package estimator
 - Benefits protection guide
 - Legal resources
@@ -93,7 +93,7 @@ RelaunchAI solves these challenges by providing:
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ### Tech Stack
 
@@ -118,7 +118,7 @@ RelaunchAI solves these challenges by providing:
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -132,21 +132,28 @@ RelaunchAI solves these challenges by providing:
 #### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/relaunch-ai.git
-cd relaunch-ai
-
+git clone https://github.com/yourusername/RelaunchAI.git
+cd relaunchai
+'''
 
 # Navigate to backend
+```bash
 cd backend
+'''
 
 # Create virtual environment
+```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
+'''
 
 # Install dependencies
+```bash
 pip install -r requirements.txt
+'''
 
 # Create .env file
+```bash
 cat > .env << EOF
 DATABASE_URL=postgresql://user:password@localhost/relaunchai_db
 SECRET_KEY=your-secret-key-here
@@ -156,27 +163,40 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 APP_NAME=RelaunchAI
 DEBUG=True
 EOF
+'''
 
 # Initialize database
+```bash
 python -c "from app.core.database import engine, Base; Base.metadata.create_all(bind=engine)"
+'''
 
 # Run backend server
+```bash
 uvicorn app.main:app --reload --port 8000
+'''
 
 
 # Open new terminal, navigate to frontend
+```bash
 cd frontend
+'''
 
 # Install dependencies
+```bash
 npm install
+'''
 
 # Create .env file
+```bash
 cat > .env << EOF
 VITE_API_URL=http://localhost:8000
 EOF
+'''
 
 # Run development server
+```bash
 npm run dev
+'''
 
 
 4. Access the application
@@ -187,77 +207,7 @@ Backend API: http://localhost:8000
 API Documentation: http://localhost:8000/docs
 
 
-
-relaunch-ai/
-├── backend/
-│   ├── app/
-│   │   ├── api/
-│   │   │   └── routes/
-│   │   │       ├── ai_router.py      # AI endpoints
-│   │   │       ├── auth_router.py    # Authentication
-│   │   │       ├── user_router.py    # User management
-│   │   │       └── google_auth_router.py
-│   │   ├── core/
-│   │   │   ├── config.py             # Settings
-│   │   │   ├── database.py           # DB connection
-│   │   │   └── security.py           # JWT & password
-│   │   ├── models/
-│   │   │   └── user.py               # User model
-│   │   ├── repositories/
-│   │   │   └── user_repository.py    # DB operations
-│   │   ├── schemas/
-│   │   │   └── user.py               # Pydantic schemas
-│   │   ├── services/
-│   │   │   ├── openai_service.py     # AI integration
-│   │   │   └── user_service.py       # Business logic
-│   │   └── main.py                   # App entry
-│   ├── requirements.txt
-│   └── .env
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── layout/               # Sidebar, Topbar
-│   │   │   └── Onboarding.jsx
-│   │   ├── context/
-│   │   │   └── AuthContext.jsx
-│   │   ├── layouts/
-│   │   │   ├── AppLayout.jsx
-│   │   │   ├── PublicLayout.jsx
-│   │   │   └── CommunityLayout.jsx
-│   │   ├── pages/
-│   │   │   ├── app/                  # Protected pages
-│   │   │   │   ├── Dashboard.jsx
-│   │   │   │   ├── LayoffRisk.jsx
-│   │   │   │   ├── JobMatching.jsx
-│   │   │   │   ├── SkillsLearning.jsx
-│   │   │   │   ├── ResumeBuilder.jsx
-│   │   │   │   └── TransitionHub.jsx
-│   │   │   ├── public/               # Public pages
-│   │   │   │   ├── Landing.jsx
-│   │   │   │   ├── Login.jsx
-│   │   │   │   └── Register.jsx
-│   │   │   └── community/            # Community pages
-│   │   ├── services/
-│   │   │   └── api.js                # API client
-│   │   ├── styles/
-│   │   │   └── globals.css
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── routes.jsx
-│   ├── package.json
-│   ├── vite.config.js
-│   └── index.html
-│
-├── docker-compose.yml
-└── README.md
-
-
-
-
-
-
-🔧 API Endpoints
+API Endpoints
 Authentication
 Method	Endpoint	Description
 POST	/auth/token	Login with email/password
@@ -307,28 +257,38 @@ Sales, Marketing	1.15-1.2x
 
 Engineering, Product	0.85-0.9x
 
-🧪 Testing
-bash
+Testing
 
 # Backend tests
+'''bash
 cd backend
 pytest
+'''
 
 # Frontend tests
+'''bash
 cd frontend
 npm test
-📦 Deployment
+'''
+
+Deployment
 Docker Deployment
-bash
 
 # Build and run with Docker Compose
+'''bash
 docker-compose up -d --build
+'''
 
 # View logs
+'''bash
 docker-compose logs -f
+'''
 
 # Stop services
+'''bash
 docker-compose down
+'''
+
 Production Checklist
 Set DEBUG=False in backend .env
 
@@ -344,7 +304,7 @@ Set up monitoring (Prometheus/Grafana)
 
 Configure backup strategy
 
-🤝 Contributing
+Contributing
 Fork the repository
 
 Create a feature branch (git checkout -b feature/amazing-feature)
@@ -366,10 +326,10 @@ Add tests for new features
 
 Update documentation accordingly
 
-📄 License
+License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-🙏 Acknowledgments
+Acknowledgments
 OpenAI for GPT API
 
 FastAPI community
@@ -378,10 +338,9 @@ React team
 
 Tailwind CSS
 
-All contributors and users
+All contributors
 
-📞 Contact & Support
-Issues: GitHub Issues
-
-Email: support@relaunchai.com
-
+Co-Leads + Frontend: Deji and Dom
+AI Lead + Research: Lexie
+Data Collection Support: Jordyn
+QA + Documentation: Zachary
