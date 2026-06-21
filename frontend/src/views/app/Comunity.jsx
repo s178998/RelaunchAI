@@ -77,7 +77,7 @@ export default function Community() {
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50"></div>
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl"></div>
-        
+
         <div className="relative max-w-7xl mx-auto px-8 py-16 lg:py-24">
           <div className="text-center max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full mb-6">
@@ -89,12 +89,12 @@ export default function Community() {
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> This Journey</span>
             </h1>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              Join a supportive community of tech professionals navigating career transitions. 
+              Join a supportive community of tech professionals navigating career transitions.
               Share experiences, get advice, and open doors together.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/community/join"
+                href="/community-chat"
                 className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg shadow-blue-500/25"
               >
                 Join the Community →
@@ -133,7 +133,7 @@ export default function Community() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, idx) => (
-            <div 
+            <div
               key={idx}
               className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-200 group"
             >
@@ -165,7 +165,7 @@ export default function Community() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((testimonial, idx) => (
-              <div 
+              <div
                 key={idx}
                 className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-all"
               >
@@ -203,7 +203,7 @@ export default function Community() {
             Get instant access to discussions, job postings, study groups, and mentorship opportunities.
           </p>
           <Link
-            href="/community/join"
+            href="/community-chat"
             className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-purple-600 transition-all duration-200 shadow-lg shadow-purple-500/25"
           >
             Get Started Free
