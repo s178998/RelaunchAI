@@ -94,7 +94,7 @@ export default function Community() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/community/join"
+                href="/community-chat"
                 className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg shadow-blue-500/25"
               >
                 Join the Community →
@@ -203,7 +203,7 @@ export default function Community() {
             Get instant access to discussions, job postings, study groups, and mentorship opportunities.
           </p>
           <Link
-            href="/community/join"
+            href="/community-chat"
             className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-purple-600 transition-all duration-200 shadow-lg shadow-purple-500/25"
           >
             Get Started Free
