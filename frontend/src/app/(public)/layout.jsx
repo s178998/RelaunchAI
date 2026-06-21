@@ -21,10 +21,10 @@ export default function PublicLayout({ children }) {
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Features", path: "/features" },
-    { name: "How It Works", path: "/how-it-works" },
-    { name: "Pricing", path: "/pricing" },
-    { name: "Success Stories", path: "/success-stories" },
+    { name: "Features", path: "/" },
+    { name: "How It Works", path: "/" },
+    { name: "Pricing", path: "/" },
+    { name: "Success Stories", path: "/" },
   ];
 
   const footerLinks = {
@@ -72,6 +72,7 @@ export default function PublicLayout({ children }) {
                   <Link
                     key={link.path}
                     href={link.path}
+                    
                     className="text-gray-300 hover:text-white transition-all duration-200 text-sm font-medium relative group"
                   >
                     {link.name}
