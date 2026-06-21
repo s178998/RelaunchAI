@@ -1,6 +1,6 @@
 // pages/public/Landing.jsx
 
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 export default function Landing() {
   return (
@@ -16,7 +16,7 @@ export default function Landing() {
       </p>
 
       <Link
-        to="/register"
+        href="/register"
         className="bg-blue-600 text-white px-6 py-3 rounded"
       >
         Get Started

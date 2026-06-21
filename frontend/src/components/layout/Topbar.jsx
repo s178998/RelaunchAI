@@ -1,11 +1,12 @@
+"use client";
 // components/layout/Topbar.jsx
 import { useState, useEffect, useContext } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { usePathname, useRouter } from "next/navigation";
 import authContext from "../../context/AuthContext";
 
 export default function Topbar() {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
   const { logout, user } = useContext(authContext);
   const [currentUser, setCurrentUser] = useState(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -34,7 +35,7 @@ export default function Topbar() {
   }, [user]);
 
   const getTitle = () => {
-    switch (location.pathname) {
+    switch (pathname) {
       case "/dashboard":
         return "Dashboard";
       case "/layoff-risk":
@@ -96,7 +97,7 @@ export default function Topbar() {
     logout();
     localStorage.removeItem('access_token');
     localStorage.removeItem('user');
-    navigate('/');
+    router.push('/');
   };
 
   const markNotificationAsRead = (id) => {
@@ -262,7 +263,7 @@ export default function Topbar() {
                   <button
                     onClick={() => {
                       setShowUserMenu(false);
-                      navigate('/profile');
+                      router.push('/profile');
                     }}
                     className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition flex items-center gap-3"
                   >
@@ -274,7 +275,7 @@ export default function Topbar() {
                   <button
                     onClick={() => {
                       setShowUserMenu(false);
-                      navigate('/settings');
+                      router.push('/settings');
                     }}
                     className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition flex items-center gap-3"
                   >

@@ -1,13 +1,15 @@
+"use client";
 // pages/public/Login.jsx
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import authContext from "../../context/AuthContext";
 import { useContext } from "react";
 
 function Login() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { login } = useContext(authContext);
   const [loginError, setLoginError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -53,7 +55,7 @@ function Login() {
         });
         
         reset();
-        navigate("/dashboard");
+        router.push("/dashboard");
       } else {
         setLoginError("Could not load user profile");
         setLoading(false);
@@ -109,7 +111,7 @@ function Login() {
             </div>
 
             <div className="text-right">
-              <Link to="/forgot-password" className="text-sm text-blue-600 hover:text-blue-700">
+              <Link href="/forgot-password" className="text-sm text-blue-600 hover:text-blue-700">
                 Forgot password?
               </Link>
             </div>
@@ -159,7 +161,7 @@ function Login() {
 
             <p className="text-center text-gray-600 text-sm mt-2">
               Don't have an account?{' '}
-              <Link to="/register" className="text-blue-600 hover:text-blue-700 font-medium">
+              <Link href="/register" className="text-blue-600 hover:text-blue-700 font-medium">
                 Sign up
               </Link>
             </p>

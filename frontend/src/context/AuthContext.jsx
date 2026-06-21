@@ -1,3 +1,4 @@
+"use client";
 // context/AuthContext.jsx
 import { createContext, useState, useEffect } from "react";
 

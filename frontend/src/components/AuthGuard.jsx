@@ -8,8 +8,7 @@ export default function AuthGuard({ children }) {
   useEffect(() => {
     const checkAuth = () => {
       const token = localStorage.getItem('access_token');
-      const user = localStorage.getItem('user');
-      
+      const user = localStorage.getItem('user')
       if (!token || !user) {
         navigate('/login', { replace: true });
       }

@@ -1,13 +1,15 @@
+"use client";
 // pages/public/Register.jsx
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, Link } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import authContext from "../../context/AuthContext";
 import { useContext } from "react";
 import { useState } from "react";
 
 function Register() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { login } = useContext(authContext);
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [registerError, setRegisterError] = useState("");
@@ -64,7 +66,7 @@ function Register() {
             reset();
             
             setTimeout(() => {
-              navigate("/onboarding", { replace: true });
+              router.replace("/onboarding");
             }, 100);
           } else {
             const userData = {
@@ -82,14 +84,14 @@ function Register() {
             reset();
             
             setTimeout(() => {
-              navigate("/onboarding", { replace: true });
+              router.replace("/onboarding");
             }, 100);
           }
         } else {
           console.error("Auto-login failed:", loginResult);
           setRegisterError("Auto-login failed. Please login manually.");
           setTimeout(() => {
-            navigate("/login", { replace: true });
+            router.replace("/login");
           }, 500);
         }
       } else {
@@ -216,7 +218,7 @@ function Register() {
 
             <p className="text-center text-gray-600 text-sm mt-2">
               Already have an account?{' '}
-              <Link to="/login" className="text-blue-600 hover:text-blue-700 font-medium">
+              <Link href="/login" className="text-blue-600 hover:text-blue-700 font-medium">
                 Sign in
               </Link>
             </p>

@@ -1,15 +1,15 @@
-// layouts/PublicLayout.jsx
-import { Outlet, Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
-export default function PublicLayout() {
-  const location = useLocation();
+export default function PublicLayout({ children }) {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Check if we should hide the entire header
-  const hideHeader = location.pathname === "/login" || location.pathname === "/register";
+  const hideHeader = pathname === "/login" || pathname === "/register";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,10 +21,10 @@ export default function PublicLayout() {
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Features", path: "/features" },
-    { name: "How It Works", path: "/how-it-works" },
-    { name: "Pricing", path: "/pricing" },
-    { name: "Success Stories", path: "/success-stories" },
+    { name: "Features", path: "/" },
+    { name: "How It Works", path: "/" },
+    { name: "Pricing", path: "/" },
+    { name: "Success Stories", path: "/" },
   ];
 
   const footerLinks = {
@@ -36,7 +36,7 @@ export default function PublicLayout() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white">
-      
+
       {/* Animated Background Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
@@ -46,18 +46,18 @@ export default function PublicLayout() {
 
       {/* Navbar - Completely hidden on login/register pages */}
       {!hideHeader && (
-        <header 
+        <header
           className={`sticky top-0 z-50 transition-all duration-300 ${
-            scrolled 
-              ? "bg-gray-950/95 backdrop-blur-xl border-b border-gray-800/50 shadow-lg" 
+            scrolled
+              ? "bg-gray-950/95 backdrop-blur-xl border-b border-gray-800/50 shadow-lg"
               : "bg-transparent border-b border-gray-800/30"
           }`}
         >
           <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
             <div className="h-16 lg:h-20 flex items-center justify-between">
-              
+
               {/* Logo */}
-              <Link to="/" className="group flex items-center gap-2">
+              <Link href="/" className="group flex items-center gap-2">
                 <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg transition-transform group-hover:scale-105">
                   <span className="text-white font-bold text-lg">R</span>
                 </div>
@@ -71,7 +71,8 @@ export default function PublicLayout() {
                 {navLinks.map((link) => (
                   <Link
                     key={link.path}
-                    to={link.path}
+                    href={link.path}
+                    
                     className="text-gray-300 hover:text-white transition-all duration-200 text-sm font-medium relative group"
                   >
                     {link.name}
@@ -83,13 +84,13 @@ export default function PublicLayout() {
               {/* Auth Buttons */}
               <div className="hidden md:flex items-center gap-3">
                 <Link
-                  to="/login"
+                  href="/login"
                   className="px-5 py-2 text-sm font-medium text-gray-300 hover:text-white transition-all duration-200 rounded-lg hover:bg-white/5"
                 >
                   Log in
                 </Link>
                 <Link
-                  to="/register"
+                  href="/register"
                   className="px-5 py-2 text-sm font-medium bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg shadow-blue-500/25"
                 >
                   Get Started
@@ -118,7 +119,7 @@ export default function PublicLayout() {
                   {navLinks.map((link) => (
                     <Link
                       key={link.path}
-                      to={link.path}
+                      href={link.path}
                       onClick={() => setMobileMenuOpen(false)}
                       className="px-4 py-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200"
                     >
@@ -127,14 +128,14 @@ export default function PublicLayout() {
                   ))}
                   <div className="flex gap-3 pt-4 mt-2 border-t border-gray-800/50">
                     <Link
-                      to="/login"
+                      href="/login"
                       onClick={() => setMobileMenuOpen(false)}
                       className="flex-1 px-4 py-2 text-center text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition"
                     >
                       Log in
                     </Link>
                     <Link
-                      to="/register"
+                      href="/register"
                       onClick={() => setMobileMenuOpen(false)}
                       className="flex-1 px-4 py-2 text-center text-sm font-medium bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition"
                     >
@@ -150,14 +151,14 @@ export default function PublicLayout() {
 
       {/* Main Content */}
       <main className="flex-1 relative">
-        <Outlet />
+        {children}
       </main>
 
       {/* Footer - Also hidden on login/register pages */}
       {!hideHeader && (
         <footer className="border-t border-gray-800/50 bg-gray-950/50 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-12 lg:py-16">
-            
+
             {/* Top Section - Brand & Newsletter */}
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mb-12">
               <div className="lg:col-span-1">
@@ -175,8 +176,8 @@ export default function PublicLayout() {
                 <div className="mt-6">
                   <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Subscribe to updates</p>
                   <div className="flex gap-2">
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       placeholder="Email address"
                       className="flex-1 px-3 py-2 bg-gray-900/50 border border-gray-700 rounded-lg text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition"
                     />
@@ -195,7 +196,7 @@ export default function PublicLayout() {
                     {links.map((link) => (
                       <li key={link}>
                         <Link
-                          to={`/${link.toLowerCase().replace(/ /g, "-")}`}
+                          href={`/${link.toLowerCase().replace(/ /g, "-")}`}
                           className="text-sm text-gray-400 hover:text-white transition-all duration-200 hover:translate-x-1 inline-block"
                         >
                           {link}
@@ -212,7 +213,7 @@ export default function PublicLayout() {
               <p className="text-xs text-gray-500 text-center md:text-left">
                 © 2026 ReLaunch. All rights reserved. Made with ❤️ for the tech community.
               </p>
-              
+
               <div className="flex gap-6">
                 <a href="#" className="text-gray-500 hover:text-gray-300 transition-all duration-200 hover:scale-110">
                   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
