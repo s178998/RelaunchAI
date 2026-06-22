@@ -257,20 +257,6 @@ Sales, Marketing	1.15-1.2x
 
 Engineering, Product	0.85-0.9x
 
-Testing
-
-# Backend tests
-'''bash
-cd backend
-pytest
-'''
-
-# Frontend tests
-'''bash
-cd frontend
-npm test
-'''
-
 Deployment
 Docker Deployment
 
