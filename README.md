@@ -340,7 +340,7 @@ Tailwind CSS
 
 All contributors
 
-Co-Leads + Frontend: Deji and Dom
-AI Lead + Research: Lexie
-Data Collection Support: Jordyn
-QA + Documentation: Zachary
+Co-Leads + Frontend + Backend + Design: Deji and Dom
+AI Lead + Research: Lexie and Deji
+Data Collection Support: Jordyn and Deji
+QA + Documentation: Zachary and Dom
